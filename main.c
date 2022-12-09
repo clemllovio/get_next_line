@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cllovio <cllovio@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: cllovio <cllovio@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 10:35:57 by cllovio           #+#    #+#             */
-/*   Updated: 2022/12/08 14:58:31 by cllovio          ###   ########.fr       */
+/*   Updated: 2022/12/09 13:23:00 by cllovio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	main(void)
 {
 	int		fd;
 	int		i;
-
+	
 	fd = open("text.txt", O_RDONLY);
 	i = 0;
 	while (i <= 6)
