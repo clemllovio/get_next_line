@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cllovio <cllovio@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cllovio <cllovio@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 11:05:31 by cllovio           #+#    #+#             */
-/*   Updated: 2022/12/09 12:59:59 by cllovio          ###   ########.fr       */
+/*   Updated: 2022/12/12 15:35:12 by cllovio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,7 @@ char	*ft_strjoin(char *s1, char *s2)
 
 	i = 0;
 	k = 0;
-	new_s = malloc(sizeof(char) * (ft_strlen(s1) + BUFSIZE + 1));
-	//printf("len of stash : %zu\n", ft_strlen(s1));
+	new_s = malloc(sizeof(char) * (ft_strlen(s1) + BUFFER_SIZE + 1));
 	if (!(new_s))
 		return (NULL);
 	while (s1[i])
@@ -59,7 +58,8 @@ char	*ft_strjoin(char *s1, char *s2)
 		new_s[k] = s2[i++];
 		k++;
 	}
-	//printf("ft_strjoin return : %s\n", new_s);
+	new_s[k] = '\0';
+	free(s1);
 	return (new_s);
 }
 
@@ -67,7 +67,7 @@ char	*ft_full_line(char *stash,int check_line)
 {
 	int		i;
 	char	*new_s;
-	
+
 	i = 0;
 	new_s = malloc(sizeof(char) * (ft_strlen(stash) - check_line + 1));
 	while (stash[i] != '\n')
@@ -85,21 +85,22 @@ char	*ft_new_stash(char	*stash, int check_line)
 	int	size;
 	int k;
 	char	*new_s;
-	
+
 	i = 0;
 	size = 0;
 	k = check_line + 1;
-	while(stash[check_line + 1])
+	while (stash[check_line + 1])
 	{
 		check_line++;
 		size++;
 	}
 	new_s = malloc(sizeof(char) * size);
-	while (i <= size)
+	while (stash[k])
 	{
 		new_s [i] = stash[k];
 		i++;
 		k++;
 	}
+	new_s[i] = '\0';
 	return (new_s);
 }
