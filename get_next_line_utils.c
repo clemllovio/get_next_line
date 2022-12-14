@@ -6,37 +6,23 @@
 /*   By: cllovio <cllovio@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 11:05:31 by cllovio           #+#    #+#             */
-/*   Updated: 2022/12/12 15:35:12 by cllovio          ###   ########.fr       */
+/*   Updated: 2022/12/14 17:20:53 by cllovio          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-int	ft_check_line(char *stash)
-{
-	int	i;
-
-	i = 0;
-	while (stash[i + 1])
-	{
-		if (stash[i] == '\n')
-			return (i);
-		i++;
-	}
-	return (-1);
-}
-
 size_t	ft_strlen(char *s)
-{
+{	
 	unsigned int	i;
 
 	i = 0;
-	while (s[i])
+	while (s[i] != '\0')
 		i++;
 	return (i);
 }
 
-char	*ft_strjoin(char *s1, char *s2)
+char	*ft_strjoin(char *stash, char *buffer)
 {
 	int		i;
 	int		k;
@@ -44,63 +30,42 @@ char	*ft_strjoin(char *s1, char *s2)
 
 	i = 0;
 	k = 0;
-	new_s = malloc(sizeof(char) * (ft_strlen(s1) + BUFFER_SIZE + 1));
-	if (!(new_s))
-		return (NULL);
-	while (s1[i])
+	if (!(stash))
 	{
-		new_s[k] = s1[i++];
-		k++;
+		stash = malloc(sizeof(char));
+		if (!(stash))
+			return (NULL);
+		stash[0] = '\0';
 	}
+	new_s = malloc(sizeof(char) * (ft_strlen(stash) + ft_strlen(buffer) + 1));
+	if (!new_s)
+		return (free(stash), NULL);
+	while (stash[i])
+		new_s[k++] = stash[i++];
 	i = 0;
-	while (s2[i])
-	{
-		new_s[k] = s2[i++];
-		k++;
-	}
+	while (buffer[i])
+		new_s[k++] = buffer[i++];
 	new_s[k] = '\0';
-	free(s1);
+	free(stash);
 	return (new_s);
 }
 
-char	*ft_full_line(char *stash,int check_line)
+char	*ft_strdup(char *buffer)
 {
+	char	*dest;
+	int		len;
 	int		i;
-	char	*new_s;
 
 	i = 0;
-	new_s = malloc(sizeof(char) * (ft_strlen(stash) - check_line + 1));
-	while (stash[i] != '\n')
+	len = ft_strlen(buffer);
+	dest = malloc(sizeof(char) * (len + 1));
+	if (!(dest))
+		return (NULL);
+	while (buffer[i])
 	{
-		new_s[i] = stash[i];
+		dest[i] = buffer[i];
 		i++;
 	}
-	new_s[i] = '\0';
-	return (new_s);
-}
-
-char	*ft_new_stash(char	*stash, int check_line)
-{
-	int	i;
-	int	size;
-	int k;
-	char	*new_s;
-
-	i = 0;
-	size = 0;
-	k = check_line + 1;
-	while (stash[check_line + 1])
-	{
-		check_line++;
-		size++;
-	}
-	new_s = malloc(sizeof(char) * size);
-	while (stash[k])
-	{
-		new_s [i] = stash[k];
-		i++;
-		k++;
-	}
-	new_s[i] = '\0';
-	return (new_s);
+	dest[i] = '\0';
+	return (dest);
 }
